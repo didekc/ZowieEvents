@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">ZovieEvents</string>
     <string name="thumbnail">Thumbnail</string>
+    <string name="monitors">MONITORS</string>
+    <string name="mousepads">MOUSEPADS</string>
+    <string name="mouses">MOUSES</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_item_detail">Items</string>
 </resources>

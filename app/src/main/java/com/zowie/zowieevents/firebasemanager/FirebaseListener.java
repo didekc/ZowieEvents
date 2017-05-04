@@ -1,11 +1,11 @@
-package com.zowie.zowieevents;
-
-import android.util.Log;
+package com.zowie.zowieevents.firebasemanager;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.zowie.zowieevents.MainActivity;
+import com.zowie.zowieevents.items.Item;
 
 import java.util.ArrayList;
 
@@ -15,17 +15,20 @@ import java.util.ArrayList;
 
 public class FirebaseListener {
     private static final String TAG = MainActivity.class.getSimpleName();
-    private ArrayList<Item> items = new ArrayList<>();
+    private DatabaseReference db;
 
-    public ArrayList<Item> retrieveItems(DatabaseReference db) {
-        Log.w(TAG, "Retrieve items for: " + db);
+    public FirebaseListener(DatabaseReference db) {
+        this.db = db;
+    }
 
+    public void itemsChildEventListener(final ArrayList<Item> items) {
+        //Log.w(TAG, "Retrieve items for: " + db);
         db.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 items.clear();
                 items.add(dataSnapshot.getValue(Item.class));
-                Log.w(TAG, "Added child: " + dataSnapshot.getValue(Item.class).getTitle());
+//                Log.w(TAG, "Added child: " + dataSnapshot.getValue(Item.class).getTitle());
             }
 
             @Override
@@ -48,6 +51,5 @@ public class FirebaseListener {
 //                Log.w(TAG, "Failed to read value.", databaseError.toException());
             }
         });
-        return items;
     }
 }

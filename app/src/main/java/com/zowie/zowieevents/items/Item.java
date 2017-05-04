@@ -1,6 +1,8 @@
-package com.zowie.zowieevents;
+package com.zowie.zowieevents.items;
 
 import android.content.Context;
+
+import com.zowie.zowieevents.MainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,19 +33,14 @@ public class Item {
         this.availability = availability;
     }
 
-    public static ArrayList<Item> getItemsFromFile(Context context, String filename) {
-        final ArrayList<Item> itemList = new ArrayList<>();
+    public static ArrayList<Item> getMonitorsItemsFromFile(Context context, String filename) {
         final ArrayList<Item> monitors = new ArrayList<>();
-        final ArrayList<Item> mousepads = new ArrayList<>();
-        final ArrayList<Item> mouses = new ArrayList<>();
 
         try {
             String jsonString = loadJsonFromAsset(context, filename);
             JSONObject json = new JSONObject(jsonString);
             JSONObject items = json.getJSONObject("items");
             JSONArray monitorsJS = items.getJSONArray("monitors");
-            JSONArray mousepadsJS = items.getJSONArray("mousepads");
-            JSONArray mousesJS = items.getJSONArray("mouses");
 
             for (int i = 0; i < monitorsJS.length(); i++) {
                 Item item = new Item();
@@ -57,6 +54,22 @@ public class Item {
                 monitors.add(item);
             }
 
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return monitors;
+    }
+
+    public static ArrayList<Item> getMousepadsItemsFromFile(Context context, String filename) {
+        final ArrayList<Item> mousepads = new ArrayList<>();
+
+        try {
+            String jsonString = loadJsonFromAsset(context, filename);
+            JSONObject json = new JSONObject(jsonString);
+            JSONObject items = json.getJSONObject("items");
+            JSONArray mousepadsJS = items.getJSONArray("mousepads");
+
             for (int i = 0; i < mousepadsJS.length(); i++) {
                 Item item = new Item();
 
@@ -66,8 +79,24 @@ public class Item {
                 item.setUrl(mousepadsJS.getJSONObject(i).getString("url"));
                 item.setAvailability(mousepadsJS.getJSONObject(i).getString("availability"));
 
-                mouses.add(item);
+                mousepads.add(item);
             }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return mousepads;
+    }
+
+    public static ArrayList<Item> getMousesItemsFromFile(Context context, String filename) {
+        final ArrayList<Item> mouses = new ArrayList<>();
+
+        try {
+            String jsonString = loadJsonFromAsset(context, filename);
+            JSONObject json = new JSONObject(jsonString);
+            JSONObject items = json.getJSONObject("items");
+            JSONArray mousesJS = items.getJSONArray("mouses");
 
             for (int i = 0; i < mousesJS.length(); i++) {
                 Item item = new Item();
@@ -78,16 +107,22 @@ public class Item {
                 item.setUrl(mousesJS.getJSONObject(i).getString("url"));
                 item.setAvailability(mousesJS.getJSONObject(i).getString("availability"));
 
-                mousepads.add(item);
+                mouses.add(item);
             }
-
-            itemList.addAll(monitors);
-            itemList.addAll(mouses);
-            itemList.addAll(mousepads);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        return mouses;
+    }
+
+    public static ArrayList<Item> getAllItemsFromFile(Context context, String filename) {
+        final ArrayList<Item> itemList = new ArrayList<>();
+
+        itemList.addAll(getMonitorsItemsFromFile(context, filename));
+        itemList.addAll(getMousepadsItemsFromFile(context, filename));
+        itemList.addAll(getMousesItemsFromFile(context, filename));
 
         return itemList;
     }

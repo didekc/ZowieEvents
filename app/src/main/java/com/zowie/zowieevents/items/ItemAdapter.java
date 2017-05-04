@@ -1,4 +1,4 @@
-package com.zowie.zowieevents;
+package com.zowie.zowieevents.items;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.zowie.zowieevents.MainActivity;
+import com.zowie.zowieevents.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,16 +24,19 @@ public class ItemAdapter extends BaseAdapter {
     private static final String TAG = MainActivity.class.getSimpleName();
     private Context mContext;
     private LayoutInflater mInflater;
-    private ArrayList<Item> mDataSource;
+    private ArrayList<Item> mDataSource = new ArrayList<>();
     private static final HashMap<String, Integer> LABEL_COLORS = new HashMap<String, Integer>() {{
         put("Available", R.color.colorAvailable);
         put("Not available", R.color.colorNotAvailable);
     }};
 
-    public ItemAdapter(Context context, ArrayList<Item> items) {
+    public ItemAdapter(Context context) {
         mContext = context;
-        mDataSource = items;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    public ArrayList<Item> getList() {
+        return mDataSource;
     }
 
     @Override

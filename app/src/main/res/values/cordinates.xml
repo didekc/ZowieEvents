@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="firstCord" format="float" type="dimen">51.111718</item>
+    <item name="secondCord" format="float" type="dimen">17.052577</item>
+</resources>
