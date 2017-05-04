@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "132536937545",
+    "firebase_url": "https://zowieevents-b5f6c.firebaseio.com",
+    "project_id": "zowieevents-b5f6c",
+    "storage_bucket": "zowieevents-b5f6c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:132536937545:android:4a41a02e3dc809b8",
+        "android_client_info": {
+          "package_name": "com.zowie.zowieevents"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "132536937545-kfqesem5hm0dmsupqe9dtnpn6c5ip5gu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zowie.zowieevents",
+            "certificate_hash": "0a70de2fe553b0ae3510631f3af9d18c8d133dcc"
+          }
+        },
+        {
+          "client_id": "132536937545-jktcnr4da6rtifqiej8459r439eha6j9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBum9GO-JjVGDcvVAVVOdjvrL-jeC3dyHY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "132536937545-jktcnr4da6rtifqiej8459r439eha6j9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

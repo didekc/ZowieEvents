@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/mapButton"
+        android:icon="@mipmap/ic_launcher_round"
+        android:onClick="onShowMap"
+        app:showAsAction="ifRoom|withText"
+        android:title="@string/title_activity_maps">
+    </item>
+</menu>
