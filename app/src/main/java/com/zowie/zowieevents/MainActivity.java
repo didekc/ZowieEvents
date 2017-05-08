@@ -21,6 +21,7 @@ import com.zowie.zowieevents.firebasemanager.FirebaseListener;
 import com.zowie.zowieevents.items.Item;
 import com.zowie.zowieevents.items.ItemAdapter;
 import com.zowie.zowieevents.maps.MapsActivity;
+import com.zowie.zowieevents.posters.PosterActivity;
 
 import java.util.ArrayList;
 
@@ -140,6 +141,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void onShowMap(MenuItem mi) {
         Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
+    }
+
+    public void onShowPoster(MenuItem mi) {
+        Intent intent = new Intent(this, PosterActivity.class);
         startActivity(intent);
     }
 }
