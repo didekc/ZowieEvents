@@ -10,11 +10,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.zowie.zowieevents.ItemDetailActivity;
 import com.zowie.zowieevents.R;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-    private static final String TAG = ItemDetailActivity.class.getSimpleName();
+    private static final String TAG = MapsActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

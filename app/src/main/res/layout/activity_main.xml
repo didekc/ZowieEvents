@@ -9,7 +9,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:background="@android:color/white"
         android:minHeight="?attr/actionBarSize"
         app:titleTextColor="@android:color/black" />
@@ -28,7 +28,7 @@
             android:visibility="visible">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/button0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

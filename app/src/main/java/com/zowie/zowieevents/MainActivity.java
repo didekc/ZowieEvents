@@ -6,13 +6,16 @@ package com.zowie.zowieevents;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.firebase.database.DatabaseReference;
@@ -20,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.zowie.zowieevents.firebasemanager.FirebaseListener;
 import com.zowie.zowieevents.items.Item;
 import com.zowie.zowieevents.items.ItemAdapter;
+import com.zowie.zowieevents.items.ItemDetailActivity;
 import com.zowie.zowieevents.maps.MapsActivity;
 import com.zowie.zowieevents.posters.PosterActivity;
 
@@ -27,28 +31,41 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
+    final String filename = "items.json";
     final ArrayList<Item> items = new ArrayList<>();
-
-    DatabaseReference db = FirebaseDatabase.getInstance().getReference("items");
-    FirebaseListener monitorsListener = new FirebaseListener(db.child("monitors"));
-    FirebaseListener mousepadsListener = new FirebaseListener(db.child("mouses"));
-    FirebaseListener mousesListener = new FirebaseListener(db.child("mousepads"));
-    ItemAdapter adapter;
-    String filename = "items.json";
+    private ItemAdapter adapter;
+    private Context context;
+    DatabaseReference db;
+    FirebaseListener monitorsListener;
+    FirebaseListener mousepadsListener;
+    FirebaseListener mousesListener;
+    Button monitorsB;
+    Button mousepadsB;
+    Button mousesB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
+        Log.w(TAG, "Test");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final Context context = this;
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        
+        monitorsB = (Button) findViewById(R.id.button0);
+        mousepadsB = (Button) findViewById(R.id.button1);
+        mousesB = (Button) findViewById(R.id.button2);
+        monitorsB.setBackgroundColor(Color.WHITE);
+        mousepadsB.setBackgroundColor(Color.GRAY);
+        mousesB.setBackgroundColor(Color.GRAY);
 
-        items.addAll(Item.getMonitorsItemsFromFile(this, filename));
+        context = this;
+        adapter = new ItemAdapter(context);
+        connectToDatabase();
 
-        adapter = new ItemAdapter(this);
-        adapter.getList().addAll(items);
+        monitorsListener.addListenerForSingleValueEvent();
 
         ListView mListView = (ListView) findViewById(R.id.item_list_view);
         mListView.setAdapter(adapter);
@@ -74,62 +91,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onMonitors(View view) {
-        ArrayList<Item> monitors = new ArrayList<>();
-
-        monitorsListener.itemsChildEventListener(monitors);
-
-        items.clear();
-        items.addAll(monitors);
-
-        adapter.getList().clear();
-        if(items.size() == 0) {
-            items.addAll(Item.getMonitorsItemsFromFile(this, filename));
-        }
-
-        adapter.getList().addAll(items);
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                adapter.notifyDataSetChanged();
-            }
-        });
+        monitorsB.setBackgroundColor(Color.WHITE);
+        mousepadsB.setBackgroundColor(Color.GRAY);
+        mousesB.setBackgroundColor(Color.GRAY);
+        monitorsListener.addListenerForSingleValueEvent();
     }
 
     public void onMousepads(View view) {
-        ArrayList<Item> mousepads = new ArrayList<>();
-
-        mousepadsListener.itemsChildEventListener(mousepads);
-
-        items.clear();
-        items.addAll(mousepads);
-
-        adapter.getList().clear();
-        if(items.size() == 0) {
-            items.addAll(Item.getMousepadsItemsFromFile(this, filename));
-        }
-
-        adapter.getList().addAll(items);
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                adapter.notifyDataSetChanged();
-            }
-        });
+        monitorsB.setBackgroundColor(Color.GRAY);
+        mousepadsB.setBackgroundColor(Color.WHITE);
+        mousesB.setBackgroundColor(Color.GRAY);
+        mousepadsListener.addListenerForSingleValueEvent();
     }
 
     public void onMouses(View view) {
-        ArrayList<Item> mouses = new ArrayList<>();
+        monitorsB.setBackgroundColor(Color.GRAY);
+        mousepadsB.setBackgroundColor(Color.GRAY);
+        mousesB.setBackgroundColor(Color.WHITE);
+        mousesListener.addListenerForSingleValueEvent();
+    }
 
-        mousesListener.itemsChildEventListener(mouses);
-
+    public void setAdapter(ArrayList<Item> it) {
         items.clear();
-        items.addAll(mouses);
-
+        items.addAll(it);
         adapter.getList().clear();
-        if(items.size() == 0) {
-            items.addAll(Item.getMousesItemsFromFile(this, filename));
-        }
-
         adapter.getList().addAll(items);
         runOnUiThread(new Runnable() {
             @Override
@@ -139,13 +124,21 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void connectToDatabase() {
+        db = FirebaseDatabase.getInstance().getReference("items");
+        db.keepSynced(true);
+        monitorsListener = new FirebaseListener(MainActivity.this, db.child("monitors"));
+        mousepadsListener = new FirebaseListener(MainActivity.this, db.child("mousepads"));
+        mousesListener = new FirebaseListener(MainActivity.this, db.child("mouses"));
+    }
+
     public void onShowMap(MenuItem mi) {
-        Intent intent = new Intent(this, MapsActivity.class);
+        Intent intent = new Intent(context, MapsActivity.class);
         startActivity(intent);
     }
 
     public void onShowPoster(MenuItem mi) {
-        Intent intent = new Intent(this, PosterActivity.class);
+        Intent intent = new Intent(context, PosterActivity.class);
         startActivity(intent);
     }
 }

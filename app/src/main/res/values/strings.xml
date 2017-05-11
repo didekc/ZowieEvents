@@ -5,5 +5,6 @@
     <string name="mousepads">MOUSEPADS</string>
     <string name="mouses">MOUSES</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_poster">Poster</string>
     <string name="title_activity_item_detail">Items</string>
 </resources>

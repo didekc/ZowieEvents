@@ -3,14 +3,14 @@
     <item
         android:id="@+id/posterButton"
         android:icon="@android:drawable/ic_dialog_info"
-        android:title="Item"
+        android:title="@string/title_activity_poster"
         android:onClick="onShowPoster"
-        app:showAsAction="ifRoom|withText" />
+        app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/mapButton"
-        android:icon="@mipmap/ic_launcher_round"
+        android:icon="@android:drawable/ic_dialog_map"
+        android:title="@string/title_activity_maps"
         android:onClick="onShowMap"
-        app:showAsAction="ifRoom|withText"
-        android:title="@string/title_activity_maps">
-    </item>
+        app:showAsAction="ifRoom" />
 </menu>

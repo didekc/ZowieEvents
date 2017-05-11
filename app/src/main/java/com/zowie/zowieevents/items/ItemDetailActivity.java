@@ -1,12 +1,13 @@
-package com.zowie.zowieevents;
+package com.zowie.zowieevents.items;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.webkit.WebView;
 
-public class ItemDetailActivity extends AppCompatActivity {
+import com.zowie.zowieevents.R;
+
+public class ItemDetailActivity extends FragmentActivity {
     private static final String TAG = ItemDetailActivity.class.getSimpleName();
-    private WebView mWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +19,7 @@ public class ItemDetailActivity extends AppCompatActivity {
 
         setTitle(title);
 
-        mWebView = (WebView) findViewById(R.id.detail_web_view);
+        WebView mWebView = (WebView) findViewById(R.id.detail_web_view);
         mWebView.loadUrl(url);
     }
 }

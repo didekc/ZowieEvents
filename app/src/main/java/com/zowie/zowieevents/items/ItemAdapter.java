@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-import com.zowie.zowieevents.MainActivity;
 import com.zowie.zowieevents.R;
 
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ import java.util.HashMap;
  */
 
 public class ItemAdapter extends BaseAdapter {
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = ItemAdapter.class.getSimpleName();
     private Context mContext;
     private LayoutInflater mInflater;
     private ArrayList<Item> mDataSource = new ArrayList<>();
@@ -59,8 +58,8 @@ public class ItemAdapter extends BaseAdapter {
         ViewHolder holder;
 
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.list_item_item, parent, false);
             holder = new ViewHolder();
+            convertView = mInflater.inflate(R.layout.list_item_item, parent, false);
             holder.thumbnailImageView = (ImageView) convertView.findViewById(R.id.item_list_thumbnail);
             holder.titleTextView = (TextView) convertView.findViewById(R.id.item_list_title);
             holder.subtitleTextView = (TextView) convertView.findViewById(R.id.item_list_subtitle);

@@ -2,8 +2,6 @@ package com.zowie.zowieevents.items;
 
 import android.content.Context;
 
-import com.zowie.zowieevents.MainActivity;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,7 +14,7 @@ import java.util.ArrayList;
  */
 
 public class Item {
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = Item.class.getSimpleName();
     private String title;
     private String image;
     private String url;
