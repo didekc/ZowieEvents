@@ -34,7 +34,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         float secondCord = outValue.getFloat();
 
         LatLng event = new LatLng(firstCord, secondCord);
-        googleMap.addMarker(new MarkerOptions().position(event).title("ZovieEvent"));
+        googleMap.addMarker(new MarkerOptions().position(event).title(getResources().getString(R.string.event_name)));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(event));
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(event, 17.0f));
     }
