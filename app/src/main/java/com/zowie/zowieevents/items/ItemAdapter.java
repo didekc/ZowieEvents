@@ -9,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.zowie.zowieevents.R;
 
@@ -74,16 +76,29 @@ public class ItemAdapter extends BaseAdapter {
         TextView titleTextView = holder.titleTextView;
         TextView subtitleTextView = holder.subtitleTextView;
         TextView detailTextView = holder.detailTextView;
-        ImageView thumbnailImageView = holder.thumbnailImageView;
+        final ImageView thumbnailImageView = holder.thumbnailImageView;
 
-        Item item = (Item) getItem(position);
+        final Item item = (Item) getItem(position);
 
         titleTextView.setText(item.getTitle());
         subtitleTextView.setText(item.getDescription());
         detailTextView.setText(item.getAvailability());
 
-        Picasso.with(mContext).load(item.getImage()).placeholder(R.mipmap
-                .ic_launcher).into(thumbnailImageView);
+        Picasso.with(mContext).load(item.getImage()).networkPolicy(NetworkPolicy.OFFLINE)
+                .placeholder(R.mipmap.ic_launcher).into(thumbnailImageView, new Callback() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onError() {
+                Picasso.with(mContext)
+                        .load(item.getImage())
+                        .into(thumbnailImageView);
+            }
+        });
+
 
         Typeface titleTypeFace = Typeface.createFromAsset(mContext.getAssets(),
                 "fonts/JosefinSans-Bold.ttf");
